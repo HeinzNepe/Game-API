@@ -1,4 +1,6 @@
 ﻿using Game_API.Interfaces;
+using Game_API.Models;
+using Game_API.Models.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Game_API.Controllers;
@@ -12,5 +14,11 @@ public class ScoreController : Controller
     public ScoreController(IScoreService scoreService)
     {
         _scoreService = scoreService;
+    }
+
+    [HttpPost("create")]
+    public int CreateScore([FromBody] CreateScoreRequest payload)
+    {
+        return _scoreService.CreateScore(payload.Uid, payload.Points);
     }
 }
