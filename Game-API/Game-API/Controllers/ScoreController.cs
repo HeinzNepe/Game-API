@@ -21,4 +21,10 @@ public class ScoreController : Controller
     {
         return _scoreService.CreateScore(payload.Uid, payload.Points);
     }
+    
+    [HttpGet("all")]
+    public IEnumerable<GetScoresRequest> GetAllProducts()
+    {
+        return _scoreService.GetAllProducts();
+    }
 }

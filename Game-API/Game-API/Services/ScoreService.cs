@@ -1,4 +1,7 @@
 ﻿using Game_API.Interfaces;
+using Game_API.Models;
+using Game_API.Models.Requests;
+using Microsoft.Extensions.DependencyInjection;
 using MySqlConnector;
 using ConfigurationManager = System.Configuration.ConfigurationManager;
 
@@ -13,7 +16,7 @@ public class ScoreService : IScoreService
         using var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString);        
         const string commandString =
             "insert into scores.scores (suid,points) values (@uid, @points)";
-        const string idCommandString = "select id from scores.scores where suid = @uid and points = @points";
+        const string idCommandString = "select sid from scores.scores where suid = @uid and points = @points";
         var command = new MySqlCommand(commandString, connection);
         var idCommand = new MySqlCommand(idCommandString, connection);
         idCommand.Parameters.AddWithValue("@uid", uid);
@@ -29,10 +32,35 @@ public class ScoreService : IScoreService
         using var reader = idCommand.ExecuteReader();
         while (reader.Read())
         {
-            sid = (int) reader["id"];
+            sid = (int) reader["sid"];
         }
         
         
         return sid;
+    }
+
+    public List<GetScoresRequest> GetAllProducts()
+    {
+        var list = new List<GetScoresRequest>();
+
+        using var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString);
+        const string commandString = "select * from scores.scores, scores.user where suid = uuid";
+        
+        var command = new MySqlCommand(commandString, connection);
+
+        connection.Open();
+
+        using var reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            list.Add(new GetScoresRequest{
+                ScoreId = (int) reader["sid"],
+                UserName = (string) reader["uusername"],
+                Points = (int) reader["points"],
+                TimeStamp = (DateTime) reader["timestamp"]
+            });
+        }
+
+        return list;
     }
 }
