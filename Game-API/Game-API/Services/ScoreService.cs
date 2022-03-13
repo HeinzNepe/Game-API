@@ -44,7 +44,7 @@ public class ScoreService : IScoreService
         var list = new List<GetScoresRequest>();
 
         using var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString);
-        const string commandString = "select * from scores.scores, scores.user where suid = uuid";
+        const string commandString = "select * from scores.scores, scores.user where suid = uuid ORDER BY points DESC LIMIT 10";
         
         var command = new MySqlCommand(commandString, connection);
 
