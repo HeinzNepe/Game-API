@@ -23,7 +23,7 @@ public class AuthService : IAuthService
         var token = "";
         
         using var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString);
-        const string commandString = "select token from online_store.credentials where username = @user and password = @pass";
+        const string commandString = "select token from scores.credentials where username = @user and password = @pass";
         var command = new MySqlCommand(commandString, connection);
         
         var passBytes = Encoding.UTF8.GetBytes(pass);
@@ -47,7 +47,7 @@ public class AuthService : IAuthService
     public bool UpdatePass(string user, string pass, string newPass)
     {
         using var connection = new MySqlConnection(ConfigurationManager.ConnectionStrings["connectionString"].ConnectionString);
-        const string commandString = "update online_store.credentials set password = @newPass where username = @username and password = @pass";
+        const string commandString = "update scores.credentials set password = @newPass where username = @username and password = @pass";
         var command = new MySqlCommand(commandString, connection);
 
         var passBytes = Encoding.UTF8.GetBytes(pass);

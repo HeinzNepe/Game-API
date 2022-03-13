@@ -18,7 +18,6 @@ using System.Text;
 using MySqlConnector;
 using Game_API.Interfaces;
 using Game_API.Models;
-using Orderingsystem.Models;
 
 namespace Game_API.Services;
 using ConfigurationManager = System.Configuration.ConfigurationManager;
@@ -122,7 +121,6 @@ public class UserService : IUserService
             Console.WriteLine(e);
             return false;
         }
-        return true;
     }
 
     public bool DeleteUser(string username)

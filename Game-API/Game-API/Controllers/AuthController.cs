@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Game_API.Interfaces;
+﻿using Game_API.Interfaces;
 using Game_API.Models;
 using Game_API.Models.Requests;
-
+using Microsoft.AspNetCore.Mvc;
 
 namespace Game_API.Controllers;
 
@@ -20,7 +19,7 @@ public class AuthController : Controller
         _authService = authService;
     }
 
-    [HttpPost]
+    [HttpPost("verify")]
     public string VerifyCredentials([FromBody] VerifyRequest payload)
     {
         return _authService.VerifyCredentials(payload.User, payload.Pass);

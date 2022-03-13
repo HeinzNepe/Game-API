@@ -1,4 +1,4 @@
-﻿namespace Orderingsystem.Models;
+﻿namespace Game_API.Models;
 
 public class User
 {

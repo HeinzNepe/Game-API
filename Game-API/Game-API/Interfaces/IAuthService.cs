@@ -1,4 +1,7 @@
-﻿namespace Game_API.Interfaces;
+﻿using Game_API.Models;
+using Game_API.Models.Requests;
+
+namespace Game_API.Interfaces;
 
 public interface IAuthService
 {
